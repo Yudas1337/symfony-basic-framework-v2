@@ -1,6 +1,6 @@
 <?php
 
-namespace Simplex;
+namespace Core;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +15,7 @@ class Framework
         private UrlMatcher $matcher,
         private ControllerResolver $controllerResolver,
         private ArgumentResolver $argumentResolver,
-    ) {
-    }
+    ) {}
 
     public function handle(Request $request): Response
     {

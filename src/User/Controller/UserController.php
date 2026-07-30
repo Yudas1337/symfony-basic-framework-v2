@@ -20,7 +20,13 @@ class UserController
         ]
     ];
 
-    public function render() {}
+    public function userpage(Request $request, string $title): Response
+    {
+        $request->attributes->set('users', $this->users);
+        $request->attributes->set('title', $title);
+
+        return render_template($request);
+    }
 
     public function index()
     {
