@@ -4,6 +4,7 @@ namespace User\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use \User\Model\User;
 
 class UserController
 {
@@ -30,10 +31,17 @@ class UserController
 
     public function index()
     {
+        $check = new User();
+
+        $data = array_map(function ($user) use ($check) {
+            $user['is_odd_year'] = $check->isOddYear($user['umur']);
+            return $user;
+        }, $this->users);
+
         return new Response(
             json_encode([
                 'message' => 'success',
-                'data' => $this->users
+                'data' => $data
             ])
         );
     }

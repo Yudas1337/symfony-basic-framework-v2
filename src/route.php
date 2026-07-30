@@ -15,7 +15,7 @@ $routes->add('leap_year', new Route('/is_leap_year/{year}', [
 
 // user route
 $user = new RouteCollection();
-$user->add('viewpage', new Route('/user_page/{title}', ['title' => 'User Page', '_controller' => [UserController::class, 'userpage']], methods: ['GET']));
+$user->add('viewpage', new Route('/user_view/{title}', ['title' => 'User Page', '_controller' => [UserController::class, 'userpage']], methods: ['GET']));
 $user->add('user_index', new Route('/', ['_controller' => [UserController::class, 'index']], methods: ['GET']));
 $user->add('user_show', new Route('/{id}', ['id' => null, '_controller' => [UserController::class, 'show']], methods: ['GET']));
 $user->add('user_create', new Route('/', ['_controller' => [UserController::class, 'store']], methods: ['POST']));
