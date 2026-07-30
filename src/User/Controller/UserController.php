@@ -2,12 +2,19 @@
 
 namespace User\Controller;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Core\ResponseEvent;
+use User\Event\UserCreatedEvent;
 use \User\Model\User;
 
 class UserController
 {
+    public function __construct(
+        private ?EventDispatcher $dispatcher = null,
+    ) {}
+
     private $users = [
         [
             'id' => 1,
@@ -52,15 +59,17 @@ class UserController
         $name = $data['name'] ?? null;
         $umur = $data['umur'] ?? null;
 
-        // todo: implement validation
-
-        return new Response(json_encode(
+        $response = new Response(json_encode(
             [
                 'message' => 'success',
                 'name' => 'nama km adalah: ' . $name,
                 'umur' => 'umur km adalah: ' . $umur
             ]
         ));
+
+        $this->dispatcher?->dispatch(new UserCreatedEvent(['name' => $name, 'umur' => $umur]), UserCreatedEvent::class);
+
+        return $response;
     }
 
     public function show(int $id)
@@ -93,6 +102,9 @@ class UserController
         $match = array_filter($this->users, fn($user) => $user['id'] === $id);
 
         // todo: implement validation
+        if (empty($match)) {
+            return new Response('User Not Found', 404);
+        }
 
         return new Response(json_encode(
             [
