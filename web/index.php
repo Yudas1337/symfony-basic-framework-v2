@@ -26,7 +26,7 @@ $dispatcher->addSubscriber(new UserCreatedListener()); // init dispatcher
 $controllerResolver = new ControllerResolver(); // resolve dari bawaan yaitu _controller
 $argumentResolver = new ArgumentResolver(); // parsing method
 
-$framework = new Framework($dispatcher, $matcher, $controllerResolver, $argumentResolver);
+$framework = new Framework($matcher, $controllerResolver, $argumentResolver);
 $response = $framework->handle($request);
 
 $response->send();

@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 class Framework
 {
     public function __construct(
-        private EventDispatcher $dispatcher,
         private UrlMatcher $matcher,
         private ControllerResolver $controllerResolver,
         private ArgumentResolver $argumentResolver,
