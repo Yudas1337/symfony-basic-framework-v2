@@ -15,12 +15,11 @@ $routes->add('leap_year', new Route('/is_leap_year/{year}', [
 
 // user route
 $user = new RouteCollection();
-$user->add('viewpage', new Route('/user_view/{title}', ['title' => 'User Page', '_controller' => [UserController::class, 'userpage']], methods: ['GET']));
-$user->add('user_index', new Route('/', ['_controller' => [UserController::class, 'index']], methods: ['GET']));
-$user->add('user_show', new Route('/{id}', ['id' => null, '_controller' => [UserController::class, 'show']], methods: ['GET']));
-$user->add('user_create', new Route('/', ['_controller' => [UserController::class, 'store']], methods: ['POST']));
-$user->add('user_update', new Route('/{id}', ['id' => null, '_controller' => [UserController::class, 'update']], methods: ['PATCH']));
-$user->add('user_destroy', new Route('/{id}', ['id' => null, '_controller' => [UserController::class, 'destroy']], methods: ['DELETE']));
+$user->add('view', new Route('/user_view/{title}', ['title' => 'User Page', '_controller' => [UserController::class, 'userpage']], methods: ['GET']));
+$user->add('index', new Route('/', ['_controller' => [UserController::class, 'index']],  methods: ['GET']));
+$user->add('show', new Route('/{id}', ['_controller' => [UserController::class, 'show']],  methods: ['GET']));
+$user->add('update', new Route('/{id}', ['_controller' => [UserController::class, 'update']],  methods: ['PATCH']));
+$user->add('destroy', new Route('/{id}', ['_controller' => [UserController::class, 'destroy']],  methods: ['DELETE']));
 
 $user->addPrefix('/user');
 $user->addNamePrefix('user_');
