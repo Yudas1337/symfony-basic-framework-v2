@@ -120,9 +120,22 @@ class UserController
 
         $match = array_filter($this->users, fn($user) => $user['id'] === $id);
 
-        // todo: implement validation
         if (empty($match)) {
             return new Response('User Not Found', 404);
+        }
+
+        $violations = $this->validator->validate($data, UserValidator::forStore());
+
+        if (count($violations) > 0) {
+            $errors = [];
+            foreach ($violations as $violation) {
+                $errors[trim($violation->getPropertyPath(), '[]')] = $violation->getMessage();
+            }
+
+            return new Response(json_encode([
+                'message' => 'validation failed',
+                'errors' => $errors,
+            ]), 422);
         }
 
         return new Response(json_encode(
