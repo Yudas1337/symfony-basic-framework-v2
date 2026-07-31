@@ -5,10 +5,12 @@ require_once __DIR__ . '/../src/template.php';
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validation;
 
 $request = Request::createFromGlobals();
 
 $dispatcher = new EventDispatcher();
+$validator = Validation::createValidator();
 
 $routes = include __DIR__ . '/../src/route.php';
 
