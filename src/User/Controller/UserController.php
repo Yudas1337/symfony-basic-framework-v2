@@ -69,7 +69,7 @@ class UserController
         if (count($violations) > 0) {
             $errors = [];
             foreach ($violations as $violation) {
-                $errors[$violation->getPropertyPath()] = $violation->getMessage();
+                $errors[trim($violation->getPropertyPath(), '[]')] = $violation->getMessage();
             }
 
             return new Response(json_encode([
